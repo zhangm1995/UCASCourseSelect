@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      <%= render "shared/sidenav" %>
+
+    </div>
+    <div class="col-sm-10">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title panel-right">我的学生(<%=@mystudent.length%>名)</h3>
+        </div>
+        <div class="panel-body" style="min-height: 450px">
+          <%if @mystudent.length==0%>
+              <div>没有指导学生</div>
+          <%else%>
+               <table class="table table-striped table-hover">
+            <thead>
+
+            <tr>
+              <th>学号</th>
+              <th>名字</th>
+              <th>专业</th>
+              <th>培养单位</th>
+              <th>已选课程数</th>
+              <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <% @mystudent.each do |student| %>
+                <tr>
+                  <td><%= student.num %></td>
+                  <td><%= student.name %></td>
+                  <td><%= student.major %></td>
+                  <td><%= student.department %></td>
+                  <td><%= student.courses.length %></td>
+                  
+                  <td><%= link_to "查看选课单", stuCourseList_course_path(stu_id:student.id),:class => "btn btn-success btn-xs" %></td>
+                  <td><%= link_to "查看课程表", schedule_course_path(schID:student.id),:class => "btn btn-info btn-xs" %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+          <%end%>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,144 @@
+<div class="panel-group" id="accordion">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+
+        <% if teacher_logged_in? %>
+            <a data-toggle="collapse" data-parent="#accordion" href="#CourseCollapse"><span class="glyphicon glyphicon-book"></span>
+              课程管理</a>
+        <% end %>
+
+        <% if student_logged_in? %>
+            <a data-toggle="collapse" data-parent="#accordion" href="#CourseCollapse"><span class="glyphicon glyphicon-book"></span>
+              选修课程</a>
+        <% end %>
+      </h4>
+    </div>
+
+    <div id="CourseCollapse" class="panel-collapse collapse <%= "in" if ["courses"].include?(params[:controller]) %>">
+      <ul class="list-group">
+        <li class="list-group-item">
+               <%= link_to showcourse_courses_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 学期课表
+                  <span class="label label-info pull-right"><%=(Course.order('created_at DESC')).length %></span>
+               <% end %>
+        </li>
+        <% if teacher_logged_in? %>
+            <li class="list-group-item">
+              <%= link_to courses_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 已授课程
+                  <span class="label label-info pull-right"><%= current_user.teaching_courses.length %></span>
+              <% end %>
+            </li>
+            <li class="list-group-item">
+              <%= link_to new_course_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 创建新课程
+              <% end %>
+            </li>
+            <li class="list-group-item">
+              <%= link_to schedule_course_path(schID: current_user.id,id:current_user.id) do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 查看课程表
+              <% end %>
+            </li>
+        <% end %>
+
+        <% if student_logged_in? %>
+            <li class="list-group-item">
+                 <%= link_to list_courses_path do %>
+                    <span class="glyphicon glyphicon-chevron-right"></span> 选修课程
+                    <span class="label label-info pull-right"><%= Course.where(:open=>true).length %></span>
+                  <% end %>
+            </li>
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+  <% if student_logged_in? %>
+     <div class="panel panel-default">
+       <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#CourseCollapse_course"><span class="glyphicon glyphicon-user"></span>
+              我的课程</a>
+          </h4>
+       </div>
+
+        <div id="CourseCollapse_course" class="panel-collapse collapse <%= "in" if ["courses"].include?(params[:controller]) %>">
+            <ul class="list-group">
+                <li class="list-group-item">
+                  <%= link_to courses_path do %>
+                    <span class="glyphicon glyphicon-chevron-right"></span> 已选课程
+                    <span class="label label-info pull-right"><%= current_user.courses.length %></span>
+                  <% end %>
+               </li>
+               <li class="list-group-item">
+                 <%= link_to schedule_course_path(schID: current_user.id,id:current_user.id) do %>
+                    <span class="glyphicon glyphicon-chevron-right"></span> 查看课程表
+                 <% end %>
+               </li>
+           </ul>
+       </div>
+     </div>
+<% end %>
+
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <% if teacher_logged_in? %>
+            <a data-toggle="collapse" data-parent="#accordion" href="#GradeCollapse"><span class="glyphicon glyphicon-list-alt"></span>
+              成绩管理</a>
+        <% end %>
+
+        <% if student_logged_in? %>
+            <a data-toggle="collapse" data-parent="#accordion" href="#GradeCollapse"><span class="glyphicon glyphicon-list-alt"></span>
+              所有成绩</a>
+        <% end %>
+      </h4>
+    </div>
+
+    <div id="GradeCollapse" class="panel-collapse collapse <%= "in" if ["grades"].include?(params[:controller]) %>">
+      <div class="list-group">
+
+        <% if teacher_logged_in? %>
+            <% current_user.teaching_courses.each do |course| %>
+                <li class="list-group-item">
+                  <%= link_to grades_path(course_id: course.id), :method => :get do %>
+                      <span class="glyphicon glyphicon-chevron-right"></span> <%= course.name %>
+                      <span class="label label-info pull-right"><%= course.users.length %></span>
+                  <% end %>
+                </li>
+            <% end %>
+
+        <% end %>
+
+        <% if student_logged_in? %>
+            <li class="list-group-item">
+              <%= link_to grades_path do %>
+                  <span class="glyphicon glyphicon-chevron-right"></span> 所有成绩
+              <% end %>
+            </li>
+        <% end %>
+
+      </div>
+    </div>
+
+    <% if teacher_logged_in? %>
+     <div class="panel panel-default">
+        <div class="panel-heading">
+           <h4 class="panel-title">
+              <%= link_to mystudent_course_path(current_user) do %>
+                  <span class="glyphicon glyphicon-user"></span>
+              学生管理
+              <% end %> 
+          </h4>
+        </div>
+      </div>
+    <% end %>
+
+
+
+    
+  </div>
+</div>

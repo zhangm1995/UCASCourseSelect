@@ -1,0 +1,90 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      <%= render "shared/sidenav" %>
+    </div>
+
+    <div class="col-md-offset-1 col-sm-6">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="text-center">课程详情: <%= @course.name %></h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >课程序号：</div>
+              <div class="col-sm-9">
+                <% if "#{@course.course_code}".length==0 %>
+                    等待管理员审核
+                <% else%>
+                    <%= @course.course_code %></td>
+                <% end %>
+              </div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >课程名称：</div>
+              <div class="col-sm-9"><%= @course.name%></div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >主讲教师：</div>
+              <div class="col-sm-9"><%= @course.teacher.name%></div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >课程类型：</div>
+              <div class="col-sm-9"><%= @course.course_type%></div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >授课方式：</div>
+              <div class="col-sm-9"><%= @course.teaching_type%></div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >课时/学分：</div>
+              <div class="col-sm-9"><%= @course.credit%></div>
+            </div>
+            <br>
+
+             <div class="form-group">
+              <div class='col-sm-3 control-label' >开课周数：</div>
+              <div class="col-sm-9"><%= @course.course_week%></div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >限选人数：</div>
+              <div class="col-sm-9"><%= @course.limit_num%></div>
+            </div>
+            <br>
+
+            <div class="form-group">
+              <div class='col-sm-3 control-label' >选课人数：</div>
+              <div class="col-sm-9"><%= @course.users.length%></div>
+            </div>
+            <br>
+
+             <div class="form-group">
+              <div class='col-sm-3 control-label' >上课教室：</div>
+              <div class="col-sm-9"><%= @course.class_room%></div>
+            </div>
+            <br>
+
+             <div class="form-group">
+              <div class='col-sm-3 control-label' >上课时间：</div>
+              <div class="col-sm-9"><%= @course.course_time%></div>
+            </div>
+            <br>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,237 @@
+<%= form_for @course, html: {class: 'form-horizontal', role: 'form'} do |f| %>
+    <%= render 'shared/error_messages', :object => @course %>
+
+    <div class="form-group">
+      <%= f.label "课程名", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :name, class: 'form-control', placeholder: "输入课程名" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "课程属性", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.select(:course_type, ['公共必修课','公共选修课','专业核心课','一级学科核心课','专业普及课','专业研讨课'], {}, {:class => 'form-control'}) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "课时", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-4">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <input type="text" class="form-control" placeholder="输入课时" id="class_period_obj" onchange="setCredit()" />  
+        </div>
+      </div>
+      <%= f.label "学分", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <select class="form-control" id="class_credit_obj" onchange="setCredit()">
+              <option value ="">请选择</option>
+              <option value ="0.5">0.5</option>
+              <option value ="1.0">1.0</option>
+              <option value ="1.5">1.5</option>
+              <option value ="2.0">2.0</option>
+              <option value ="2.5">2.5</option>
+              <option value ="3.0">3.0</option>
+              <option value ="3.5">3.5</option>
+              <option value ="4.0">4.0</option>
+              <option value ="4.5">4.5</option>
+              <option value ="5.0">5.0</option>
+            </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "上课周数", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :course_week, class: 'form-control', placeholder: "输入上课周数" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "上课时间", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-3">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+            <select class="form-control" id="course_day_obj" onchange="setCourseTime()">
+              <option value ="">请选择</option>
+              <option value ="周一">周一</option>
+              <option value ="周二">周二</option>
+              <option value ="周三">周三</option>
+              <option value ="周四">周四</option>
+              <option value ="周五">周五</option>
+              <option value ="周六">周六</option>
+              <option value ="周日">周日</option>
+            </select>    
+        </div>
+      </div>
+      <%= f.label "from", class: 'col-sm-1 control-label' %>
+      <div class="col-sm-2">
+        <div class="input-group">     
+            <select class="form-control" id="course_begin_obj" onchange="setCourseTime()">
+              <option value ="">节数</option>
+              <option value ="1">1</option>
+              <option value ="2">2</option>
+              <option value ="3">3</option>
+              <option value ="4">4</option>
+              <option value ="5">5</option>
+              <option value ="6">6</option>
+              <option value ="7">7</option>
+              <option value ="8">8</option>
+              <option value ="9">9</option>
+              <option value ="10">10</option>
+              <option value ="11">11</option>
+            </select>           
+        </div>
+      </div>
+      <%= f.label "to", class: 'col-sm-1 control-label' %>
+      <div class="col-sm-2">
+        <div class="input-group">        
+             <select class="form-control" id="course_end_obj" onchange="setCourseTime()">
+              <option value ="">节数</option>
+              <option value ="2">2</option>
+              <option value ="3">3</option>
+              <option value ="4">4</option>
+              <option value ="5">5</option>
+              <option value ="6">6</option>
+              <option value ="7">7</option>
+              <option value ="8">8</option>
+              <option value ="9">9</option>
+              <option value ="10">10</option>
+              <option value ="11">11</option>
+            </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "授课方式", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :teaching_type, class: 'form-control', placeholder: "输入授课方式" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "考试方式", class: 'col-sm-2 control-label' %>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-arrow-right"></span></div>
+          <%= f.text_field :exam_type, class: 'form-control', placeholder: "输入考试方式" %>
+        </div>
+      </div>
+    </div>
+
+
+    <%= f.text_field :credit ,id:"credit_obj",style:"display:none"%>
+    <%= f.text_field :course_time ,id:"course_time_obj",style:"display:none"%>
+    <%= f.text_field :class_room ,:value =>'待分配',style:"display:none"%>
+    <%= f.text_field :limit_num,:value =>'100',style:"display:none" %>
+
+    <script type="text/javascript">
+      /////////////上课时间
+      var time_Obj=document.getElementById('course_time_obj');
+      var day_Obj=document.getElementById('course_day_obj');
+      var begin_Obj=document.getElementById('course_begin_obj');
+      var end_Obj=document.getElementById('course_end_obj');
+
+      var course_time=time_Obj.value;
+      if (course_time.length!=0) {
+          //星期几
+          var course_day=course_time.substring(0,2);
+          var day_num;
+          if (course_day=="周一") {day_num=1;}
+          else if (course_day=="周二") {day_num=2;}
+          else if (course_day=="周三") {day_num=3;}
+          else if (course_day=="周四") {day_num=4;}
+          else if (course_day=="周五") {day_num=5;}
+          else if (course_day=="周六") {day_num=6;}
+          else if (course_day=="周日") {day_num=7;}
+      //获取分割线-的位置
+      var split_index=course_time.indexOf("-");
+      //开始的上课节数  
+      var begin_class=course_time.substring(3,split_index);
+      //结束的上课节数 
+      var end_class=course_time.substring(split_index+1,course_time.length-1);
+
+      ///设置上课时间下拉框
+      day_Obj.options[day_num].selected=true; 
+      begin_Obj.options[begin_class].selected=true;
+      end_Obj.options[end_class-1].selected=true;      
+      } ;
+
+      //////////////课时学分
+      var period_Obj=document.getElementById('class_period_obj');
+      var credit_Obj=document.getElementById('class_credit_obj');
+      var credit_period_Obj=document.getElementById('credit_obj');
+
+      var credit_period=credit_period_Obj.value;
+      if (credit_period.length!=0) {
+      
+        //获取分割线-的位置
+        var split_index2=credit_period.indexOf('/');
+        //开始的上课节数  
+        var period=credit_period.substring(0,split_index2);
+        //结束的上课节数 
+        var credit=credit_period.substring(split_index2+1,credit_period.length);
+        var credit2=credit*2;
+
+        credit_Obj.options[credit2].selected=true; 
+        period_Obj.value=period;
+      }     
+    </script>
+    <%= f.submit '提交', class: "btn btn-success btn-block"%>
+    <%= link_to '取消', courses_path, :class => "btn btn-default btn-block" %>
+<% end %>
+
+<script type="text/javascript">
+  //onchange事件
+  function setCourseTime(){
+    var day_Obj=document.getElementById('course_day_obj');
+    var begin_Obj=document.getElementById('course_begin_obj');
+    var end_Obj=document.getElementById('course_end_obj');
+    var time_Obj=document.getElementById('course_time_obj');
+
+    var day=day_Obj.value;
+    var begin=begin_Obj.value;
+    var end=end_Obj.value;
+    var time;
+    if (day.length==0||begin.length==0||end.length==0) {
+      time="";
+    }else{
+      time=day+'('+begin+'-'+end+')';
+    }
+    time_Obj.value=time;
+  }
+
+  function setCredit(){
+    var set_period_Obj=document.getElementById('class_period_obj');
+    var set_credit_Obj=document.getElementById('class_credit_obj');
+    var set_credit_period_Obj=document.getElementById('credit_obj');
+
+    var set_period=set_period_Obj.value;
+    var set_credit=set_credit_Obj.value;
+    var all_period_credit;
+    if(set_period.length==0||set_credit.length==0){
+      all_period_credit="";
+    }else{
+      all_period_credit=set_period+'/'+set_credit;
+    }
+    set_credit_period_Obj.value=all_period_credit;
+  }
+</script>
+

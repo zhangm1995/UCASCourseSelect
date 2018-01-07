@@ -1,0 +1,43 @@
+wb = xlsx_package.workbook
+
+wb.styles do |style|
+  highlight_cell = style.add_style(bg_color: "EFC376",
+                                   border: Axlsx::STYLE_THIN_BORDER,
+                                   alignment: { horizontal: :center },
+                                   :format_code => '# ###.##')
+  date_cell = style.add_style(format_code: "yyyy-mm-dd", border: Axlsx::STYLE_THIN_BORDER)
+  highlight_text = wb.styles.add_style( :bg_color => "FF0000", :type => :dxf )
+
+  wb.add_worksheet(name: "Exports") do |sheet|
+    if @type=='students_list'
+      sheet.add_row ["课程名称","学号", "姓名","专业","培养单位"]
+    @exports.each do |grade|  
+      #将学号后面加空格转为文本，以防excel中科学计数法显示
+      student_num="#{grade.user.num} "  
+      sheet.add_row [grade.course.name,student_num, grade.user.name, grade.user.major,grade.user.department]               
+      sheet.rows.last.cells.first.u = :single
+    end  
+    elsif @type=='grades_list'
+      sheet.add_row ["学号", "姓名","专业","培养单位","课程名称","成绩"]
+    @exports.each do |grade|
+      #将学号后面加空格转为文本，以防excel中科学计数法显示
+      student_num="#{grade.user.num} "
+      sheet.add_row [student_num, grade.user.name, grade.user.major,grade.user.department,grade.course.name,grade.grade]               
+      sheet.rows.last.cells.first.u = :single
+    end 
+
+    ##liupan 加student页面导出
+    elsif @type=='mycourse_list'
+        sheet.add_row ["课程编号","课程名称","课程类型","课时/学分","考试方式","上课时间","上课地点","主讲教师"]
+        @exports.each do |course|
+           sheet.add_row [course.course_code,course.name,course.course_type,course.credit,course.exam_type,course.course_time ,course.class_room,course.teacher.name]               
+       end  
+    
+    elsif @type=='mygrade_list'
+         sheet.add_row ["课程编号", "课程名称","课程学分","授课教师","分数"]
+         @exports.each do |grade|
+           sheet.add_row [ grade.course.course_code,  grade.course.name,grade.course.credit.split('/')[1],grade.course.teacher.name,grade.grade]               
+        end  
+    end  
+  end
+end
