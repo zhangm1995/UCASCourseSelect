@@ -1,6 +1,6 @@
-#source 'https://gems.ruby-china.org'
+source 'https://gems.ruby-china.org'
 ##zm###本地调试使用
-source 'http://gems.ruby-china.org'
+#source 'http://gems.ruby-china.org'
 
 gem 'bootstrap-sass', '~> 3.3.7'
 # Use ActiveModel has_secure_password
@@ -42,9 +42,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'simplecov', :require => false, :group => :test
 
 # for postgresql
-#gem 'pg', '~> 0.18.4'
+gem 'pg', '~> 0.18.4'
 ##zm###本地调试使用
-gem 'pg', '~> 0.21.0'
+#gem 'pg', '~> 0.21.0'
 
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -73,7 +73,7 @@ group :production do
   gem 'rails_12factor'
 end
 ##zm###本地调试使用
-gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
+#gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 
 #######zm添加#####导出excel
 gem 'axlsx', '~> 2.0'
