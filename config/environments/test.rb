@@ -40,11 +40,11 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
    ActionMailer::Base.smtp_settings = { 
-  :address              => "smtp.126.com", 
+  :address              => "smtp.qq.com", 
   :port                 => 25, 
-  :domain               => "126.com", 
-  :user_name            => "zhangm1995", 
-  :password             => "zhangmi1995", 
+  :domain               => "qq.com", 
+  :user_name            => "458732368", 
+  :password             => "iuzouglbjpgfbiib", 
   :authentication       => "plain", 
   :enable_starttls_auto => true 
 } 
