@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #   resources :products
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  root 'sessions#new'
+  root 'homes#index'
 
   resources :courses do
     member do
